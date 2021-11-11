@@ -27,11 +27,11 @@ class IncrementalStore {
   /**
    * @template {Resource} T
    * @param {T} resource 
-   * @param {DecimalOperators} operator 
    * @param {string | number} input 
+   * @param {DecimalOperators} operator - default: "add"
    * @return {Decimal} Amount of resource
    */
-  changeResourceAmount(resource, operator, input) {
+  changeResourceAmount(resource, input, operator="add") {
     if (arguments.length < 3) errorHandler(`Expected 3 arguments to passed. Got ${arguments.length}.`);
     if (!(resource instanceof Resource)) errorHandler("Invaild Resource passed");
     if (!DecimalOperators.includes(operator)) errorHandler("Invaild operator");
