@@ -22,7 +22,7 @@ class Upgrade {
 
     // Fix options.cost
     if (
-      typeof options.cost === "string" ||
+      ["number", "string"].includes(typeof options.cost) ||
       (
         Array.isArray(options.cost) &&
         !options.cost[0].hasOwnProperty("cost")
@@ -32,7 +32,8 @@ class Upgrade {
       options.cost = {
         resource: options.resource,
         cost: options.cost
-      }
+      };
+      if (!Array.isArray(options.cost.cost)) options.cost.cost = [options.cost.cost]
     }
     if (!Array.isArray(options.cost)) options.cost = [options.cost];
 
