@@ -1,3 +1,3 @@
-import Incremental from "./src/Incremental.js";
+import Incremental from "./src/class/Incremental.js";
 
-export default Incremental
+export default Incremental;
