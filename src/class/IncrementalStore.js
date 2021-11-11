@@ -32,12 +32,12 @@ class IncrementalStore {
    * @return {Decimal} Amount of resource
    */
   changeResourceAmount(resource, input, operator="add") {
-    if (arguments.length < 3) errorHandler(`Expected 3 arguments to passed. Got ${arguments.length}.`);
+    if (arguments.length < 2) errorHandler(`Expected 2 or more arguments to passed. Got ${arguments.length}.`);
     if (!(resource instanceof Resource)) errorHandler("Invaild Resource passed");
     if (!DecimalOperators.includes(operator)) errorHandler("Invaild operator");
 
-    this.save[resource.key] = this.save[resource.key][operator](input);
-    return this.save[resource.key];
+    this.save.resources[resource.key] = this.save.resources[resource.key][operator](input);
+    return this.save.resources[resource.key];
   }
 
   /**
