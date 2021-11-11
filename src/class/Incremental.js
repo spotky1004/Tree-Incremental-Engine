@@ -32,8 +32,6 @@ class Incremental {
       resources: {},
       layers: {}
     };
-    /** @type {DefaultSave} */
-    this.save = {};
     this.store.updateSave();
   }
 
