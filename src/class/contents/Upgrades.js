@@ -9,7 +9,7 @@ import errorHandler from "../../util/errorHandler.js";
  */
 
 class Upgrades {
-  /** @param {UpgradesConstructor} */
+  /** @param {UpgradesConstructor} options */
   constructor(options) {
     // Exceptions
     if (options.resource && !(options.resource instanceof Resource)) errorHandler("Invaild Resource passed");
