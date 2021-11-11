@@ -30,7 +30,7 @@ class Incremental {
     /** @type {DefaultSave} */
     this.defaultSave = {
       resources: {},
-      layer: {}
+      layers: {}
     };
     /** @type {DefaultSave} */
     this.save = {};
@@ -43,7 +43,7 @@ class Incremental {
     if (this.resourceMap.has(resource.key)) errorHandler(`Resource ${resource.key} already exists`);
 
     this.resources.push(resource);
-    this.resourceMap.set(resource.key) = resource;
+    this.resourceMap.set(resource.key, resource);
     this.defaultSave.resources[resource.key] = new Decimal(resource.initialAmount);
     this.store.updateSave();
 
@@ -52,11 +52,10 @@ class Incremental {
 
   /** @param {Layer} layer */
   attachLayer(layer) {
-    if (this.layersMap.has(layer.key)) errorHandler(`This instance already has "${layer.key}" layer`);
+    if (this.layerMap.has(layer.key)) errorHandler(`This instance already has "${layer.key}" layer`);
 
-    
     this.layers.push(layer);
-    this.layerMap.set(layer.key) = layer;
+    this.layerMap.set(layer.key, layer);
     this.defaultSave.layers[layer.key] = layer.defaultSave;
     this.store.updateSave();
     
