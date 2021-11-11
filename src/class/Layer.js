@@ -60,17 +60,15 @@ class Layer {
 
   /**
    * @template {AttachableContentsTypes} T
-   * @param {T} type 
-   * @param {AttachedContentsConstructorTypes[T]} options 
+   * @param {AttachedContentInstances[T]} toAttach 
    */
-  attachContent(type, options) {
-    const contentToAttach = new attachableContents[type](options);
-    this.attachedContents[type].push(contentToAttach);
+  attachContent(toAttach) {
+    this.attachedContents[toAttach.constructor.name].push(toAttach);
 
-    if (contentToAttach instanceof Upgrade) { 
+    if (toAttach instanceof Upgrade) { 
       this.defaultSave.Upgrade.push(new Decimal(0));
-    } else if (contentToAttach instanceof Upgrades) {
-      this.defaultSave.Upgrades.push(Array.from({length: contentToAttach.upgrades.length}, _ => new Decimal(0)));
+    } else if (toAttach instanceof Upgrades) {
+      this.defaultSave.Upgrades.push(Array.from({length: toAttach.upgrades.length}, _ => new Decimal(0)));
     }
 
     return this;
@@ -82,43 +80,45 @@ export default Layer;
 // const SpotkyCoin = new Resource({
 //   name: "Spotky Coin"
 // });
+// const forestUpgrades = new Upgrades({
+//   resource: SpotkyCoin,
+//   upgrades: [
+//     {
+//       title: "Faster grow!",
+//       description: "🌲 production x2",
+//       cost: "10"
+//     },
+//     {
+//       title: "Fastest grow!",
+//       description: "🌲 production x2",
+//       cost: "1000"
+//     },
+//   ],
+// });
+// const forestUpgrade = new Upgrade({
+//   title: "Bigger forest",
+//   description: "Make forest bigger to boost 🌲 production by x1.5",
+//   resource: SpotkyCoin,
+//   cost: [
+//     [
+//       "Linear", {
+//         start: 10,
+//         increment: 5
+//       }
+//     ],
+//     [
+//       "Exponential", {
+//         start: 100,
+//         mul: 1.1
+//       }
+//     ]
+//   ]
+// })
 // const ForestSampleLayer = new Layer({
 //   mainResource: SpotkyCoin,
 //   name: "Forest Layer"
 // })
-//   .attachContent("Upgrades", {
-//     resource: SpotkyCoin,
-//     upgrades: [
-//       {
-//         title: "Faster grow!",
-//         description: "🌲 production x2",
-//         cost: "10"
-//       },
-//       {
-//         title: "Fastest grow!",
-//         description: "🌲 production x2",
-//         cost: "1000"
-//       },
-//     ],
-//   })
-//   .attachContent("Upgrade", {
-//     title: "Bigger forest",
-//     description: "Make forest bigger to boost 🌲 production by x1.5",
-//     resource: SpotkyCoin,
-//     cost: [
-//       [
-//         "Linear", {
-//           start: 10,
-//           increment: 5
-//         }
-//       ],
-//       [
-//         "Exponential", {
-//           start: 100,
-//           mul: 1.1
-//         }
-//       ]
-//     ]
-//   });
+//   .attachContent(forestUpgrades)
+//   .attachContent(forestUpgrade);
 // console.log(ForestSampleLayer);
 
