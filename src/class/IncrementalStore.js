@@ -1,8 +1,9 @@
-import Decimal from "../lib/decimal";
+import Decimal from "../lib/decimal.js";
 import Layer from "./Layer.js";
-import Resource from "./contents/Rescouce";
+import Resource from "./contents/Rescouce.js";
 import Incremental from "./Incremental.js";
 import errorHandler from "../util/errorHandler.js";
+import mergeObject from "../util/mergeObject.js";
 
 /** @type {keyof typeof Decimal} */
 const DecimalOperators = Object.keys(Decimal);
