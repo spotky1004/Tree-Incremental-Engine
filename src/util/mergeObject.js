@@ -1,11 +1,12 @@
-export default function mergeObject(target, source) {
+import Decimal from "../lib/decimal.js";
+
+function mergeObject(target, source) {
   target = target ?? {};
   for (const i in source) {
-    if (Array.isArray(source[i])) {
-      target[i] = target[i] ?? [];
-      mergeArray(target[i], source[i]);
-    } else if (source[i] === null) {
-      target[i] = target[i] ?? source[i];
+    if (source[i] instanceof Decimal) {
+      target[i] = new Decimal(target[i] ?? source[i]);
+    } else if (Array.isArray(source[i])) {
+      target[i] = mergeArray(target[i], source[i])
     } else if (typeof source[i] === "object") {
       target[i] = mergeObject(target[i], source[i]);
     } else {
@@ -15,11 +16,12 @@ export default function mergeObject(target, source) {
   return target;
 }
 function mergeArray(target, source) {
+  target = target ?? [];
   for (let i = 0, l = source.length; i < l; i++) {
-    if (Array.isArray(source[i])) {
-      mergeArray(target[i], source[i]);
-    } else if (source[i] === null) {
-      target[i] = target[i] ?? source[i];
+    if (source[i] instanceof Decimal) {
+      target[i] = new Decimal(target[i] ?? source[i]);
+    } else if (Array.isArray(source[i])) {
+      target[i] = mergeArray(target[i], source[i]);
     } else if (typeof source[i] === "object") {
       target[i] = mergeObject(target[i], source[i]);
     } else {
@@ -28,3 +30,5 @@ function mergeArray(target, source) {
   }
   return target;
 }
+
+export default mergeObject;
