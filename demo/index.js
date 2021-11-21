@@ -4,7 +4,7 @@ import {
   Resource,
   Upgrade,
   Upgrades,
-} from "../index.js";
+} from "../spotkys-incremental-engine/index.js";
 import Decimal from "./lib/decimal.js";
 
 const game = new Incremental();
