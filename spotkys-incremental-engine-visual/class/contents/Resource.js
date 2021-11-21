@@ -31,12 +31,18 @@ class Resource {
         defaultContent: " " + options.name,
         classNames: `resource__name resource-${options.name}__name`,
         display: "inline"
+      }),
+      production: new Textbox({
+        defaultContent: " (+0/s)",
+        classNames: `resource__production resource-${options.name}__production`,
+        display: "inline"
       })
     };
 
     this.container.addTextbox(this.elements.youHaveTxt);
     this.container.addTextbox(this.elements.have);
     this.container.addTextbox(this.elements.name);
+    this.container.addTextbox(this.elements.production);
   }
   
   /** @param {number | string} amount */
@@ -46,6 +52,11 @@ class Resource {
 
   get have() {
     return this.elements.have.content;
+  }
+
+  /** @param {number | string} amount */
+  set production(amount) {
+
   }
 }
 
