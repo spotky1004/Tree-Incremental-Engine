@@ -7,6 +7,3 @@ demo soon
 
 ## Document
 document soon
-
-## Plan
-visual and nodejs versions are planned
