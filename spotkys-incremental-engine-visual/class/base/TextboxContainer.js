@@ -1,4 +1,4 @@
-import Textbox from "./Textbox";
+import Textbox from "./Textbox.js";
 
 const Display = {
   inline: "inline",

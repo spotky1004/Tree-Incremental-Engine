@@ -15,7 +15,7 @@ class Resource {
     });
 
     /** @type {TextboxContainer} */
-    this.element = this.container;
+    this.element = this.container.element;
     this.elements = {
       youHaveTxt: new Textbox({
         defaultContent: "You have ",
