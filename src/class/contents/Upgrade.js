@@ -40,7 +40,7 @@ class Upgrade {
     this.title = options.title;
     this.description = options.description;
     this.cost = new Cost(...options.cost);
-    this.rebuyable = Boolean(this.cost.costs[0].func.functions[0].type !== "constant" || options.rebuyable); // ...
+    this.rebuyable = Boolean(this.cost.costs[0].func.functions[0].type !== "constant" || options.rebuyable);
   }
 
   calculateCost(input) {

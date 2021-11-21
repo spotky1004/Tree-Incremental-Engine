@@ -8,10 +8,6 @@ import Decimal from "../../lib/decimal";
 import Resource from "../contents/Rescouce.js";
 import errorHandler from "../../util/errorHandler.js";
 
-/**
- * @constant
- * @readonly
- */
 const OperatorPriority = {
   pow: 0,
   log2: 0,
@@ -21,11 +17,11 @@ const OperatorPriority = {
   add: 2,
   sub: 3
 };
-const operators = Object.keys(priority);
+const operators = Object.keys(OperatorPriority);
 /**
  * @typedef BoostConstructor
  * @property {Resource} resource - Resource to boost
- * @property {keyof typeof priority} operator - Operator to calculate, default "mul"
+ * @property {keyof typeof OperatorPriority} operator - Operator to calculate, default "mul"
  * @property {number | string} input - Static input
  * @property {number} [priority] - Low -> faster, default 10, 0 ~ 100, Follow reversed math priority if same priority
  * @property {BoostConstructor} [boostedBy] - Boosted by other booster
@@ -52,10 +48,8 @@ class Boost {
     this.boostedBy = options.boostedBy ? new Boost(options.boostedBy) : undefined;
   }
 
-  static OperatorPriority = OperatorPriority;
-
   /** @param {Booster[]} boosters */
-  static sortBooster(boosters) {
+  static sortBoosters(boosters) {
 
   }
 
@@ -80,15 +74,3 @@ export default Boost;
 new Boost({
   operator: ""
 })
-/**
- * Enum for tri-state values.
- * @readonly
- * @enum {number}
- */
-var triState = {
-  /** The true value */
-  TRUE: 1,
-  FALSE: -1,
-  /** @type {boolean} */
-  MAYBE: true
-};
