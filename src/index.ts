@@ -8,7 +8,7 @@ const upgrade1 = new SIE.conetnet.Upgrade({
   id: "u1",
   cost: "" as never,
 });
-const c1 = new SIE.etc.StagedNumber("value")
+const c1 = new SIE.num.StagedNumber("value")
   .addStage(0, "linear", {
     start: 5,
     inc: 5
