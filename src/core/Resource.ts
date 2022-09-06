@@ -35,7 +35,7 @@ export default class Resource {
     this._amount = new Decimal(0);
   }
 
-  set amount(value: NDecimal) {
+  set amount(value: string | NDecimal) {
     this._amount = new Decimal(value);
   }
 
