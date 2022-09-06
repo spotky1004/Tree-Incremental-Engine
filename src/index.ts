@@ -1,31 +1,64 @@
 import SIE from "./bundles/sie";
 
 const game = new SIE.Game({
-  strictMode: true,
   localStorageKey: "SIE_test"
 });
-const upgrade1 = new SIE.conetnet.Upgrade({
-  id: "u1",
-  cost: "" as never,
+const coin = new SIE.Resource({
+  id: "coin",
+  startAmount: 10,
+  gainBase: (game) => game.getResource("pp").amount.sqrt().add(1),
+  display: {
+    name: "Coin",
+    nameAbbr: "C"
+  }
 });
-const c1 = new SIE.num.StagedNumber("value")
-  .addStage(0, "linear", {
-    start: 5,
-    inc: 5
-  })
-  .addStage(50, "acc", {
-    start: 50,
-    inc: 5,
-    acc: 5
-  })
-  .addStage(1e308, "const", {
-    start: 1
-  });
+const pp = new SIE.Resource({
+  id: "pp",
+  startAmount: 0,
+  gainBase: 1,
+  display: {
+    name: "Presige Point",
+    nameAbbr: "PP"
+  }
+});
 
-void game.contents.add(upgrade1);
-const upg = game.getContent("u1", "Upgrade");
+game.resources.add(coin);
+game.resources.add(pp);
 
-let t = 23456;
-console.log(game, upg, t, c1.reverseCalc(t).toString(), c1.calc(c1.reverseCalc(t)).toString(), c1.calc(c1.reverseCalc(t)).sub(t).abs().toString());
+const cost1 = new SIE.num.Cost({
+  resource: coin,
+  costValue: {
+    type: "x",
+    stages: [
+      [0, "linear", {
+        base: 10,
+        inc: 5
+      }],
+      [10, "acc", {
+        base: 100,
+        inc: 5,
+        acc: 5
+      }]
+    ]
+  }
+});
+const sampleUpgrade = new SIE.conetnet.Upgrade({
+  id: "sample_upgrade",
+  name: "Sample Upgrade",
+  cost: cost1,
+  maxLevel: (game) => Decimal.max(10, game.getResource("pp").amount.log(10)).add(1),
+  onUpdate: (_, game) => {
+    console.log(game.getResource("coin"));
+  }
+});
+const sampleUpgradeList = new SIE.conetnet.UpgradeList({
+  id: "sample_upgrade_list",
+  name: "Sample Upgrade List"
+})
+  .addUpgrade(sampleUpgrade);
+
+game.contents.add(sampleUpgradeList);
+
+console.log(game);
 
 export default SIE;
