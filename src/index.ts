@@ -59,6 +59,8 @@ const sampleUpgradeList = new SIE.conetnet.UpgradeList({
 
 game.contents.add(sampleUpgradeList);
 
+game.init();
+
 console.log(game);
 
 export default SIE;
