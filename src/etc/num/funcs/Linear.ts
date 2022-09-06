@@ -15,13 +15,13 @@ export default class Linear extends FuncBase {
   calcValue(x: NDecimal) {
     const { start, mul, pow, inc } = this;
 
-    return start.add(inc.mul(x)).mul(mul).pow(pow);
+    return start.add(inc.mul(new Decimal(x).sub(1))).mul(mul).pow(pow);
   }
 
   calcX(value: NDecimal) {
     const { start, mul, pow, inc } = this;
     value = new Decimal(value);
 
-    return value.pow(pow.pow(-1)).div(mul).sub(start).div(inc);
+    return value.pow(pow.pow(-1)).div(mul).sub(start).div(inc).sub(1);
   }
 }

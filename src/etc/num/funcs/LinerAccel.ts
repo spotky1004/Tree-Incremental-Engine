@@ -25,7 +25,7 @@ export default class LinearAccel extends FuncBase {
     const { start, mul, pow, inc, acc } = this;
     x = new Decimal(x);
 
-    return start.add(arithmeticSum(x, acc, inc)).mul(mul).pow(pow);
+    return start.add(arithmeticSum(new Decimal(x).sub(1), acc, inc)).mul(mul).pow(pow);
   }
 
   calcX(value: NDecimal) {
