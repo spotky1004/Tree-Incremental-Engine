@@ -1,23 +1,53 @@
 import Resource from "../core/Resource";
-import NumberFunc, { NumValue } from "./num/NumberFunc";
+import NumberFunc, { NumInput } from "./num/NumberFunc";
 import errMsg from "../data/errMsg";
 import type Game from "../core/Game";
 
-export type CostInput = [resource: Resource, costValue: NumValue<Game<any>>];
-export type CostData = [resource: Resource, costValue: NumberFunc<Game<any>>];
+export interface CostInput {
+  resource: Resource;
+  costValue: NumInput<Game>;
+};
+export type CostChunk = [resource: Resource, costValue: NumberFunc<Game>];
+interface CostData {
+  resource: Resource;
+  value: Decimal;
+}
+
+function parseCostInput(input: CostInput): CostChunk {
+  return [
+    input.resource,
+    new NumberFunc(input.costValue)
+  ]
+}
 
 export default class Cost {
-  costDatas: CostData[];
+  costDatas: CostChunk[];
 
   constructor(costDatas: CostInput | CostInput[]) {
-    if (costDatas.length > 0 && costDatas[0] instanceof Resource) {
-      this.costDatas = [costDatas as CostInput].map(([r, c]) => [r, new NumberFunc(c)]);
+    if (Array.isArray(costDatas)) {
+      this.costDatas = costDatas.map(d => parseCostInput(d));
     } else {
-      this.costDatas = (costDatas as CostInput[]).map(([r, c]) => [r, new NumberFunc(c)]);;
+      this.costDatas = [parseCostInput(costDatas)];
     }
   }
 
-  canBuy(game: Game<any>, level: Decimal=new Decimal(0)) {
+  get(game: Game, level: Decimal=new Decimal(0)) {
+    const resources = game.resources;
+    const costDatas: CostData[] = [];
+    for (const [localResource, costValue] of this.costDatas) {
+      const resourceId = localResource.id;
+      const gameResource = resources.get(resourceId);
+      if (!gameResource) throw new Error(errMsg.cost.nonExistResource(resourceId));
+      const cost = costValue.calc(new Decimal(level), game);
+      costDatas.push({
+        resource: localResource,
+        value: new Decimal(cost)
+      });
+    }
+    return costDatas;
+  }
+
+  getBulkBuyAmount(game: Game, level: Decimal=new Decimal(0)) {
     const resources = game.resources;
     let buyAmount = new Decimal(Infinity);
     for (const [localResource, costValue] of this.costDatas) {
@@ -31,9 +61,13 @@ export default class Cost {
         const resourceBuyAmount = costValue.reverseCalc(resourceAmount, game);
         buyAmount = Decimal.max(resourceBuyAmount, buyAmount).floor();
       } else {
-        return false;
+        return new Decimal(0);
       }
     }
     return buyAmount;
+  }
+
+  canBuy(game: Game, level: Decimal=new Decimal(0)) {
+    return this.getBulkBuyAmount(game, level).gt(0);
   }
 }

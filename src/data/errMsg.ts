@@ -1,10 +1,8 @@
 const errMsg = {
-  strict: {
+  game: {
     nonExist: (id: string) => `Resource '${id}' doesn't exists`,
     noResourceTypeMatch: (id: string, type: string) => `Resource '${id}' isn't type '${type}'`,
-    noContentTypeMatch: (id: string, type: string) => `Content '${id}' isn't type '${type}'`
-  },
-  game: {
+    noContentTypeMatch: (id: string, type: string) => `Content '${id}' isn't type '${type}'`,
     notInit: () => `The game must be inited to run\nRun game.init() once to initialize`,
     duplicatedId: (ids: string[]) => `There's duplicated id(s): ${ids.map(id => `'${id}'`).join(", ")}`
   },

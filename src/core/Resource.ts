@@ -38,7 +38,7 @@ export default class Resource {
     return handleGameDP(this.startAmount, game);
   }
 
-  applySavedata(game: Game<any>, data: ResourceSavedata) {
+  applySavedata(game: Game, data: ResourceSavedata) {
     this.amount = new Decimal(data.amount ?? this.getStartAmount(game));
   }
 }

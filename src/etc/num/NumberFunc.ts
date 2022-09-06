@@ -2,6 +2,7 @@ import StagedNumber, { createStagedNumber, StagedNumberInput } from "./StagedNum
 
 interface NumCallbacks<P> {
   calc: (level: Decimal, param: P) => NDecimal;
+  sum?: (from: Decimal, to: Decimal) => NDecimal;
   reverseCalc?: (value: Decimal, param: P) => NDecimal;
 }
 
@@ -39,11 +40,11 @@ export default class NumberFunc<P> {
     if (value instanceof StagedNumber) {
       return value.reverseCalc(result);
     } else if (typeof value === "number") {
-      return 1;
+      return Infinity;
     } else if ("calc" in value) {
       return value.reverseCalc ? value.reverseCalc(new Decimal(result), param) : 1;
     } else {
-      return 1;
+      return Infinity;
     }
   }
 }

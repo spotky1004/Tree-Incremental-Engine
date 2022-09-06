@@ -3,7 +3,7 @@ import type Upgrade from "./Upgrade";
 import type ContentManager from "../core/ContentManager";
 
 interface UpgradeListOptions extends ContentBaseOptions<UpgradeList> {
-  upgrades: Upgrade[];
+  upgrades?: Upgrade[];
 }
 
 export default class UpgradeList extends ContentBase {
@@ -12,7 +12,7 @@ export default class UpgradeList extends ContentBase {
   constructor(options: UpgradeListOptions) {
     super(options);
     this._upgrades = [];
-    this.addUpgrade(...options.upgrades);
+    this.addUpgrade(...(options.upgrades ?? []));
   }
 
   addUpgrade(...upgrades: Upgrade[]) {
@@ -23,6 +23,8 @@ export default class UpgradeList extends ContentBase {
         upgrade.setParent(this);
       }
     }
+
+    return this;
   }
 
   removeUpgrade(upgrade: Upgrade) {
@@ -41,7 +43,7 @@ export default class UpgradeList extends ContentBase {
     return this._upgrades;
   }
 
-  addChildsToContent(contents: ContentManager<any>) {
+  addChildsToContent(contents: ContentManager) {
     for (const upgrade of this._upgrades) {
       contents.add(upgrade);
     }

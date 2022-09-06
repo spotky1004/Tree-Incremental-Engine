@@ -13,7 +13,7 @@ export default class Savefile {
   savedata: Savedata;
   localStorageKey: string;
 
-  constructor(game: Game<any>, options: SavedataOptions) {
+  constructor(game: Game, options: SavedataOptions) {
     this.game = game;
     this.defaultData = options.defaultData ?? {};
     this.savedata = typeEqualize(this.defaultData, {});

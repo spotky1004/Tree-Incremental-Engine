@@ -7,27 +7,20 @@ import arrFindDuelicated from "../util/arrFindDuplicated";
 import type Savedata from "../types/savedata";
 import type { AnyContentName } from "../bundles/conetnet";
 
-interface GameOptions<S extends boolean> {
-  strictMode?: S;
+interface GameOptions {
   localStorageKey: string;
 }
 
-export default class Game<S extends boolean=false> {
-  readonly strictMode: S;
+export default class Game {
   player: Player;
-  contents: ContentManager<S>;
-  resources: ResourceManager<S>;
+  contents: ContentManager;
+  resources: ResourceManager;
   savefile: Savefile;
 
-  constructor(options: GameOptions<S>) {
-    this.strictMode = (options.strictMode ?? false) as S;
+  constructor(options: GameOptions) {
     this.player = new Player();
-    this.contents = new ContentManager({
-      strictMode: this.strictMode
-    });
-    this.resources = new ResourceManager({
-      strictMode: this.strictMode
-    });
+    this.contents = new ContentManager();
+    this.resources = new ResourceManager();
     this.savefile = new Savefile(this, {
       localStorageKey: options.localStorageKey
     });

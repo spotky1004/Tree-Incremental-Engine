@@ -11,7 +11,7 @@ export default class Player {
     this.startedAt = Date.now();
   }
 
-  applySavedata(game: Game<any>, data: PlayerSavedata) {
+  applySavedata(game: Game, data: PlayerSavedata) {
     game;
     if (data.startedAt) this.startedAt = data.startedAt;
   }

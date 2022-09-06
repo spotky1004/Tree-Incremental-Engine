@@ -79,8 +79,8 @@ export default class Upgrade extends ContentBase {
     if (!game) {
       throw new Error(errMsg.game.notInit());
     }
-    if (data.type !== "Upgrade" && game.strictMode) {
-      throw new Error(errMsg.strict.noContentTypeMatch(this.id, data.type));
+    if (data.type !== "Upgrade") {
+      throw new Error(errMsg.game.noContentTypeMatch(this.id, data.type));
     }
 
     this.level = new Decimal(data.level ?? this.getStartLevel());

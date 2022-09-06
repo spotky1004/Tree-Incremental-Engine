@@ -54,7 +54,7 @@ export default class ContentBase {
     }
   }
 
-  addChildsToContent(contents: ContentManager<any>) {
+  addChildsToContent(contents: ContentManager) {
     contents;
   }
 
