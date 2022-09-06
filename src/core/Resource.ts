@@ -24,7 +24,7 @@ export default class Resource {
   private _startAmount: DynamicParam<NDecimal, Game>;
   private _gainBase: DynamicParam<NDecimal, Game>;
   display: ResourceDispaly;
-  amount: Decimal;
+  _amount: Decimal;
 
   constructor(options: ResourceOptions) {
     this.id = options.id;
@@ -32,7 +32,15 @@ export default class Resource {
     this._gainBase = options.gainBase ?? 0;
     this.display = options.display;
 
-    this.amount = new Decimal(0);
+    this._amount = new Decimal(0);
+  }
+
+  set amount(value: NDecimal) {
+    this._amount = new Decimal(value);
+  }
+
+  get amount(): Decimal {
+    return this._amount;
   }
 
   init(game: Game) {
