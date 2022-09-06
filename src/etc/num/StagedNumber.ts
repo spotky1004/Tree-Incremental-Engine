@@ -2,6 +2,21 @@ import funcs, { AnyFunc, FuncTypes, FuncOptions } from "./funcs";
 
 type ConditionType = "x" | "value";
 
+type StagedNumberInputChunk<T extends FuncTypes> = [condition: NDecimal, type: T, options: FuncOptions[T]];
+export interface StagedNumberInput {
+  type: ConditionType;
+  stages: StagedNumberInputChunk<FuncTypes>[];
+};
+
+export function createStagedNumber(input: StagedNumberInput) {
+  const { type, stages } = input;
+  const stagedNumber = new StagedNumber(type);
+  for (const stage of stages) {
+    void stagedNumber.addStage(...stage);
+  }
+  return stagedNumber;
+}
+
 export default class StagedNumber {
   readonly conditionType: ConditionType;
   stages: [condition: NDecimal, func: AnyFunc][];

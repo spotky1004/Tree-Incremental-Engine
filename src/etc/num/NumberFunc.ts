@@ -1,16 +1,23 @@
-import StagedNumber from "./StagedNumber";
+import StagedNumber, { createStagedNumber, StagedNumberInput } from "./StagedNumber";
 
 interface NumCallbacks<P> {
   calc: (level: Decimal, param: P) => NDecimal;
   reverseCalc?: (value: Decimal, param: P) => NDecimal;
 }
 
+export type NumInput<P> = NDecimal | NumCallbacks<P> | StagedNumber | StagedNumberInput;
 export type NumValue<P> = NDecimal | NumCallbacks<P> | StagedNumber;
 
 export default class NumberFunc<P> {
   value: NumValue<P>;
 
-  constructor(value: NumValue<P>) {
+  constructor(value: NumInput<P>) {
+    if (
+      typeof value === "object" && "stages" in value &&
+      !(value instanceof StagedNumber)
+    ) {
+      value = createStagedNumber(value);
+    }
     this.value = value;
   }
 
