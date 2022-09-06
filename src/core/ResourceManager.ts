@@ -13,6 +13,12 @@ export default class ResourceManager {
     this.resourceMap = new Map();
   }
 
+  init(game: Game) {
+    for (const [, resource] of this.resourceMap) {
+      resource.init(game);
+    }
+  }
+
   add(resource: Resource) {
     const id = resource.id;
     if (this.getAllResourceIds().includes(id)) {
@@ -33,12 +39,12 @@ export default class ResourceManager {
     return [...this.resourceMap.keys()];
   }
 
-  applySavedata(game: Game, savedata: ResourceManagerSavedata) {
+  applySavedata(savedata: ResourceManagerSavedata) {
     for (const resourceId of Object.keys(savedata)) {
       const resourceSavedata = savedata[resourceId];
       const resource = this.resourceMap.get(resourceId);
       if (resource) {
-        resource.applySavedata(game, resourceSavedata);
+        resource.applySavedata(resourceSavedata);
       }
     }
   }

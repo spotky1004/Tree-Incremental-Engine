@@ -29,6 +29,7 @@ export default class Game {
   init() {
     void this.checkDuplicatedId();
     this.contents.init(this);
+    this.resources.init(this);
   }
 
   checkDuplicatedId() {
@@ -51,6 +52,6 @@ export default class Game {
 
   applySavedata(data: Savedata) {
     this.player.applySavedata(this, data.player ?? {});
-    this.resources.applySavedata(this, data.resources ?? {});
+    this.resources.applySavedata(data.resources ?? {});
   }
 }

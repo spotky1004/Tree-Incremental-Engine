@@ -24,8 +24,8 @@ export default class ContentManager {
 
   getAllContentIds() {
     const ids = [];
-    for (const [id, content] of this.contentMap) {
-      ids.push(id, ...content.getChildIds());
+    for (const [id] of this.contentMap) {
+      ids.push(id);
     }
     return ids;
   }
