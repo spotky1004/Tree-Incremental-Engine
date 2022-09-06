@@ -1,4 +1,5 @@
 import ContentBase, { ContentBaseOptions, ContentSavedata } from "./ContentBase";
+import Cost, { CostInput } from "../etc/Cost";
 import handleGameDP from "../util/handleGameDP";
 import errMsg from "../data/errMsg";
 import type Game from "../core/Game";
@@ -10,13 +11,13 @@ export interface UpgradeSavedata extends ContentSavedata {
 }
 
 interface UpgradeOptions extends ContentBaseOptions<Upgrade> {
-  cost: never;
+  cost: Cost | CostInput;
   startLevel?: DynamicParam<NDecimal, Game>;
   maxLevel?: DynamicParam<NDecimal, Game>;
 }
 
 export default class Upgrade extends ContentBase {
-  cost: never;
+  cost: Cost;
   private _level: Decimal;
   startLevel: DynamicParam<NDecimal, Game>;
   maxLevel: DynamicParam<NDecimal, Game>;
@@ -24,7 +25,7 @@ export default class Upgrade extends ContentBase {
 
   constructor(options: UpgradeOptions) {
     super(options);
-    this.cost = options.cost;
+    this.cost = options.cost instanceof Cost ? options.cost : new Cost(options.cost);
     this._level = new Decimal(0);
     this.startLevel = options.startLevel ?? new Decimal(0);
     this.maxLevel = options.maxLevel ?? new Decimal(1);

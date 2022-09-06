@@ -1,10 +1,10 @@
 import Game from "../core/Game";
 import conetnet from "./conetnet";
-import etc from "./etc";
+import num from "./num";
 
 const SIE = {
   Game,
   conetnet,
-  etc
+  num
 };
 export default SIE;
