@@ -10,6 +10,25 @@ export interface UpgradeSavedata extends ContentSavedata {
   level?: NumberData;
 }
 
+interface UpgradeCheckDatas {
+  "isBought": {
+    options: {};
+    returns: boolean;
+  };
+  "canBuy": {
+    options: {
+      bulkAmount?: NDecimal;
+    };
+    returns: boolean;
+  };
+  "isLevel": {
+    options: {
+      gte: NDecimal;
+    };
+    returns: boolean;
+  };
+}
+
 interface UpgradeOptions extends ContentBaseOptions<Upgrade> {
   cost: Cost | CostInput;
   startLevel?: DynamicParam<NDecimal, Game>;
@@ -66,12 +85,54 @@ export default class Upgrade extends ContentBase {
     return handleGameDP(this.maxLevel, this.game);
   }
 
-  canBuy() {
-    
+  check<T extends keyof UpgradeCheckDatas>(type: T, options: UpgradeCheckDatas[T]["options"]={}): UpgradeCheckDatas[T]["returns"] {
+    const level = this._level;
+    const maxLevel = this.getMaxLevel();
+    if (type === "isBought") {
+      if (typeof level !== "number") {
+        return level.gte(maxLevel);
+      } else if (typeof maxLevel !== "number") {
+        return maxLevel.gte(level);
+      } else {
+        return level >= maxLevel;
+      }
+    } else if (type === "canBuy") {
+      type Options = UpgradeCheckDatas["canBuy"]["options"];
+      if (!this.game) throw new Error(errMsg.game.notInit());
+      const bulkAmount = this.cost.getBulkBuyAmount(this.game, level);
+      return bulkAmount.gte((options as Options).bulkAmount ?? 1);
+    } else {
+      type Options = UpgradeCheckDatas["isLevel"]["options"];
+      return level.gte((options as Options).gte);
+    }
   }
 
-  buy() {
-    
+  /**
+   * Returns how much level bulk bought
+   */
+  buy(bulk: boolean=false) {
+    if (!this.game) throw new Error(errMsg.game.notInit());
+    const { _level: level, game, cost } = this;
+    const canBuy = cost.canBuy(game, level);
+    if (canBuy) {
+      const bulkBuyAmount = cost.getBulkBuyAmount(game, level);
+      let levelToBuy: Decimal;
+      if (bulk && bulkBuyAmount.gte(1)) {
+        levelToBuy = level.add(bulkBuyAmount);
+      } else {
+        levelToBuy = level.add(1);
+      }
+      const result = cost.buy(game, levelToBuy);
+      if (result) {
+        const levelDiff = levelToBuy.sub(this._level);
+        this.level = levelToBuy;
+        return levelDiff;
+      } else {
+        return new Decimal(0);
+      }
+    } else {
+      return new Decimal(0);
+    }
   }
 
   applySavedata(data: UpgradeSavedata): void {

@@ -8,7 +8,7 @@ export interface CostInput {
   costValue: NumInput<Game>;
 };
 export type CostChunk = [resource: Resource, costValue: NumberFunc<Game>];
-interface CostData {
+export interface CostData {
   resource: Resource;
   value: Decimal;
 }
@@ -69,5 +69,18 @@ export default class Cost {
 
   canBuy(game: Game, level: Decimal=new Decimal(0)) {
     return this.getBulkBuyAmount(game, level).gt(0);
+  }
+
+  buy(game: Game, level: Decimal=new Decimal(0)) {
+    const canBuy = this.canBuy(game, level);
+    if (!canBuy) return false;
+    const costDatas = this.get(game, level);
+    for (const { resource: localResource, value } of costDatas) {
+      const resourceId = localResource.id;
+      const gameResource = game.getResource(resourceId);
+      if (!gameResource) throw new Error(errMsg.cost.nonExistResource(resourceId));
+      gameResource.amount = gameResource.amount.sub(value);
+    }
+    return true;
   }
 }
