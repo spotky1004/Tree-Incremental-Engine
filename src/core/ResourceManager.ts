@@ -30,7 +30,7 @@ export default class ResourceManager {
   get(id: string): Resource {
     const resource = this.resourceMap.get(id);
     if (!resource) {
-      throw new Error(errMsg.game.nonExist(id));
+      throw new Error(errMsg.game.nonResourceExist(id));
     }
     return resource;
   }

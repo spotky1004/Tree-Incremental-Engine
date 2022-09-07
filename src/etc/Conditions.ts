@@ -1,5 +1,6 @@
 import type Game from "../core/Game";
 import type Upgrade from "../contents/Upgrade";
+import type { DynamicParam } from "@util-types";
 
 type CreateCondition<T> = DynamicParam<T[], Game> | undefined;
 

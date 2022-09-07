@@ -1,8 +1,9 @@
 import errMsg from "../data/errMsg";
 import type Game from "../core/Game";
 import type ContentManager from "../core/ContentManager";
+import type { DynamicParam } from "@util-types";
 
-export interface ContentSavedata {
+export interface ContentBaseSavedata {
   type: string;
 }
 
@@ -16,6 +17,7 @@ export interface ContentBaseOptions<T extends ContentBase> {
 }
 
 export default class ContentBase {
+  type: string;
   game?: Game;
   readonly id: string;
   name: DynamicParam<string, Game> | null;
@@ -24,6 +26,7 @@ export default class ContentBase {
   element: HTMLElement | null;
 
   constructor(options: ContentBaseOptions<any>) {
+    this.type = "ContentBase";
     this.id = options.id;
     this.name = options.name ?? null;
     this.onUpdate = options.onUpdate ?? null;
@@ -62,7 +65,7 @@ export default class ContentBase {
     return [];
   }
 
-  applySavedata(data: ContentSavedata) {
+  applySavedata(data: ContentBaseSavedata) {
     const game = this.game;
     if (!game) {
       throw new Error(errMsg.game.notInit());

@@ -12,6 +12,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+    roots: [path.resolve("./src")],
+    alias: {
+      "@util-types": path.resolve(__dirname, "../src/types/util.d.ts"),
+    },
   },
   module: {
     rules: [

@@ -1,4 +1,6 @@
 import FuncBase, { FuncBaseOptions } from "./FuncBase";
+import Decimal from "decimal.js";
+import type { NDecimal } from "@util-types";
 
 export interface LinearOptions extends FuncBaseOptions {
   inc?: NDecimal;

@@ -1,3 +1,6 @@
+import Decimal from "decimal.js";
+import type { NDecimal } from "@util-types";
+
 export interface FuncBaseOptions {
   start?: NDecimal;
   mul?: NDecimal;

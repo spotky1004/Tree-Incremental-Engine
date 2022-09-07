@@ -1,11 +1,13 @@
-import ContentBase, { ContentBaseOptions, ContentSavedata } from "./ContentBase";
+import ContentBase, { ContentBaseOptions, ContentBaseSavedata } from "./ContentBase";
 import Cost, { CostInput } from "../etc/Cost";
 import handleGameDP from "../util/handleGameDP";
 import errMsg from "../data/errMsg";
+import Decimal from "decimal.js";
 import type Game from "../core/Game";
 import type UpgradeList from "./UpgradeList";
+import type { NDecimal, NumberData, DynamicParam } from "@util-types";
 
-export interface UpgradeSavedata extends ContentSavedata {
+export interface UpgradeSavedata extends ContentBaseSavedata {
   type: "Upgrade";
   level?: NumberData;
 }

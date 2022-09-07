@@ -1,6 +1,6 @@
-import Layer from "../contents/Layer";
+import Layer, { LayerSavedata } from "../contents/Layer";
 import Upgrade, { UpgradeSavedata } from "../contents/Upgrade";
-import UpgradeList from "../contents/UpgradeList";
+import UpgradeList, { UpgradeListSavedata } from "../contents/UpgradeList";
 
 const content = {
   Upgrade,
@@ -13,6 +13,8 @@ export type AnyContent = InstanceType<typeof content[AnyContentName]>;
 
 export interface ContentSavedata {
   "Upgrade": UpgradeSavedata;
+  "UpgradeList": UpgradeListSavedata;
+  "Layer": LayerSavedata;
 }
 export type AnyContentSavedata = ContentSavedata[keyof ContentSavedata];
 

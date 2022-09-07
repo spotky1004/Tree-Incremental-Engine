@@ -1,6 +1,7 @@
 import Resource from "../core/Resource";
 import NumberFunc, { NumInput } from "./num/NumberFunc";
 import errMsg from "../data/errMsg";
+import Decimal from "decimal.js";
 import type Game from "../core/Game";
 
 export interface CostInput {

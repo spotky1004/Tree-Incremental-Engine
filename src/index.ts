@@ -1,4 +1,5 @@
 import SIE from "./bundles/sie";
+import Decimal from "decimal.js";
 
 const game = new SIE.Game({
   localStorageKey: "SIE_test"
@@ -60,6 +61,7 @@ const sampleUpgradeList = new SIE.conetnet.UpgradeList({
 game.contents.add(sampleUpgradeList);
 
 game.init();
+game.savefile.load();
 
 console.log(game);
 

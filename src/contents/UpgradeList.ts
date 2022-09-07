@@ -1,6 +1,13 @@
-import ContentBase, { ContentBaseOptions } from "./ContentBase";
-import type Upgrade from "./Upgrade";
+import ContentBase, { ContentBaseOptions, ContentBaseSavedata } from "./ContentBase";
+import type { default as Upgrade, UpgradeSavedata } from "./Upgrade";
 import type ContentManager from "../core/ContentManager";
+
+export interface UpgradeListSavedata extends ContentBaseSavedata {
+  type: "UpgradeList";
+  upgrades?: {
+    [upgradeId: string]: UpgradeSavedata;
+  }
+}
 
 interface UpgradeListOptions extends ContentBaseOptions<UpgradeList> {
   upgrades?: Upgrade[];
