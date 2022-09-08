@@ -8,14 +8,13 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './'),
-    filename: "./sie.js"
+    filename: "./tree.js"
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-    roots: [path.resolve("./src")],
-    alias: {
-      "@util-types": path.resolve(__dirname, "../src/types/util.d.ts"),
-    },
+    // "alias": {
+    //   "@util-types": path.resolve(__dirname, "/src/types/util.d.ts"),
+    // },
   },
   module: {
     rules: [

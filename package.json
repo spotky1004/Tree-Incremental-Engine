@@ -2,8 +2,8 @@
   "name": "tree-incremental-engine",
   "version": "0.1.0",
   "description": "SIE is a library that helps you develop Incremental Game based on module",
-  "main": "sie.js",
-  "types": "sie.d.ts",
+  "main": "tree.js",
+  "types": "tree.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
