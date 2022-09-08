@@ -1,6 +1,6 @@
 import StagedNumber, { createStagedNumber, StagedNumberInput } from "./StagedNumber";
 import Decimal from "decimal.js";
-import type { NDecimal } from "@util-types";
+import type { NDecimal } from "@typings/util";
 
 interface NumCallbacks<P> {
   calc: (level: Decimal, param: P) => NDecimal;

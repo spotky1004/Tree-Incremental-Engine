@@ -1,7 +1,7 @@
 import handleDynamicParam from "./handleDynamicParam";
 import errMsg from "../data/errMsg";
 import type Game from "../core/Game";
-import type { DynamicParam } from "@util-types";
+import type { DynamicParam } from "@typings/util";
 
 const gameDPErrMsg = errMsg.dynamic.missingParam("Game");
 

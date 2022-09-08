@@ -1,6 +1,6 @@
 import typeEqualize from "../util/typeEqualize";
 import type Game from "./Game";
-import type Savedata from "../types/savedata";
+import type Savedata from "@typings/savedata";
 
 interface SavedataOptions {
   defaultData?: Savedata;

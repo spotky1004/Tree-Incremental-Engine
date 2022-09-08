@@ -1,6 +1,6 @@
 import funcs, { AnyFunc, FuncTypes, FuncOptions } from "./funcs";
 import Decimal from "decimal.js"; 
-import type { NDecimal } from "@util-types";
+import type { NDecimal } from "@typings/util";
 
 type ConditionType = "x" | "value";
 

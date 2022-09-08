@@ -1,7 +1,7 @@
 import errMsg from "../data/errMsg";
 import type Game from "../core/Game";
 import type ContentManager from "../core/ContentManager";
-import type { DynamicParam } from "@util-types";
+import type { DynamicParam } from "@typings/util";
 
 export interface ContentBaseSavedata {
   type: string;

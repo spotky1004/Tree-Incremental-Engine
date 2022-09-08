@@ -21,7 +21,7 @@ declare module "data/errMsg" {
 declare module "contents/ContentBase" {
     import type Game from "core/Game";
     import type ContentManager from "core/ContentManager";
-    import type { DynamicParam } from "@util-types";
+    import type { DynamicParam } from "@typings/util";
     export interface ContentBaseSavedata {
         type: string;
     }
@@ -72,18 +72,18 @@ declare module "contents/Layer" {
     }
 }
 declare module "util/handleDynamicParam" {
-    import type { DynamicParam } from "@util-types";
+    import type { DynamicParam } from "@typings/util";
     export default function handleDynamicParam<T, P>(dynamic: DynamicParam<T, P>, param?: P, errMsg?: string): T;
 }
 declare module "util/handleGameDP" {
     import type Game from "core/Game";
-    import type { DynamicParam } from "@util-types";
+    import type { DynamicParam } from "@typings/util";
     export default function handleGameDP<T>(gameDP: DynamicParam<T, Game>, game?: Game): T;
 }
 declare module "core/Resource" {
     import Decimal from "decimal.js";
     import type Game from "core/Game";
-    import type { NDecimal, DynamicParam, NumberData } from "@util-types";
+    import type { NDecimal, DynamicParam, NumberData } from "@typings/util";
     export interface ResourceSavedata {
         amount?: NumberData;
     }
@@ -116,7 +116,7 @@ declare module "core/Resource" {
 }
 declare module "etc/num/funcs/FuncBase" {
     import Decimal from "decimal.js";
-    import type { NDecimal } from "@util-types";
+    import type { NDecimal } from "@typings/util";
     export interface FuncBaseOptions {
         start?: NDecimal;
         mul?: NDecimal;
@@ -134,7 +134,7 @@ declare module "etc/num/funcs/FuncBase" {
 declare module "etc/num/funcs/Constant" {
     import FuncBase, { FuncBaseOptions } from "etc/num/funcs/FuncBase";
     import Decimal from "decimal.js";
-    import type { NDecimal } from "@util-types";
+    import type { NDecimal } from "@typings/util";
     export interface ConstantOptions extends FuncBaseOptions {
     }
     export default class Constant extends FuncBase {
@@ -146,7 +146,7 @@ declare module "etc/num/funcs/Constant" {
 declare module "etc/num/funcs/Exponential" {
     import FuncBase, { FuncBaseOptions } from "etc/num/funcs/FuncBase";
     import Decimal from "decimal.js";
-    import type { NDecimal } from "@util-types";
+    import type { NDecimal } from "@typings/util";
     export interface ExponentialOptions extends FuncBaseOptions {
         base?: NDecimal;
     }
@@ -160,7 +160,7 @@ declare module "etc/num/funcs/Exponential" {
 declare module "etc/num/funcs/Linear" {
     import FuncBase, { FuncBaseOptions } from "etc/num/funcs/FuncBase";
     import Decimal from "decimal.js";
-    import type { NDecimal } from "@util-types";
+    import type { NDecimal } from "@typings/util";
     export interface LinearOptions extends FuncBaseOptions {
         inc?: NDecimal;
     }
@@ -174,7 +174,7 @@ declare module "etc/num/funcs/Linear" {
 declare module "etc/num/funcs/LinerAccel" {
     import FuncBase, { FuncBaseOptions } from "etc/num/funcs/FuncBase";
     import Decimal from "decimal.js";
-    import type { NDecimal } from "@util-types";
+    import type { NDecimal } from "@typings/util";
     export interface LinearAccelOptions extends FuncBaseOptions {
         inc?: NDecimal;
         acc?: NDecimal;
@@ -217,7 +217,7 @@ declare module "etc/num/funcs" {
 declare module "etc/num/StagedNumber" {
     import { AnyFunc, FuncTypes, FuncOptions } from "etc/num/funcs";
     import Decimal from "decimal.js";
-    import type { NDecimal } from "@util-types";
+    import type { NDecimal } from "@typings/util";
     type ConditionType = "x" | "value";
     type StagedNumberInputChunk<T extends FuncTypes> = [condition: NDecimal, type: T, options: FuncOptions[T]];
     export interface StagedNumberInput {
@@ -239,7 +239,7 @@ declare module "etc/num/StagedNumber" {
 declare module "etc/num/NumberFunc" {
     import StagedNumber, { StagedNumberInput } from "etc/num/StagedNumber";
     import Decimal from "decimal.js";
-    import type { NDecimal } from "@util-types";
+    import type { NDecimal } from "@typings/util";
     interface NumCallbacks<P> {
         calc: (level: Decimal, param: P) => NDecimal;
         sum?: (from: Decimal, to: Decimal) => NDecimal;
@@ -306,7 +306,7 @@ declare module "contents/Upgrade" {
     import Decimal from "decimal.js";
     import type Game from "core/Game";
     import type UpgradeList from "contents/UpgradeList";
-    import type { NDecimal, NumberData, DynamicParam } from "@util-types";
+    import type { NDecimal, NumberData, DynamicParam } from "@typings/util";
     export interface UpgradeSavedata extends ContentBaseSavedata {
         type: "Upgrade";
         level?: NumberData;
@@ -425,7 +425,7 @@ declare module "util/typeEqualize" {
 }
 declare module "core/Savefile" {
     import type Game from "core/Game";
-    import type Savedata from "../types/savedata";
+    import type Savedata from "@typings/savedata";
     interface SavedataOptions {
         defaultData?: Savedata;
         localStorageKey: string;
@@ -448,7 +448,7 @@ declare module "core/Game" {
     import ResourceManager from "core/ResourceManager";
     import Player from "core/Player";
     import Savefile from "core/Savefile";
-    import type Savedata from "../types/savedata";
+    import type Savedata from "@typings/savedata";
     import type { AnyContentName } from "bundles/conetnet";
     interface GameOptions {
         localStorageKey: string;
@@ -491,10 +491,10 @@ declare module "bundles/num" {
     };
     export default num;
 }
-declare module "bundles/sie" {
+declare module "bundles/Tree" {
     import Game from "core/Game";
     import Resource from "core/Resource";
-    const SIE: {
+    const Tree: {
         Game: typeof Game;
         Resource: typeof Resource;
         conetnet: {
@@ -514,11 +514,11 @@ declare module "bundles/sie" {
             };
         };
     };
-    export default SIE;
+    export default Tree;
 }
 declare module "index" {
-    import SIE from "bundles/sie";
-    export default SIE;
+    import Tree from "bundles/Tree";
+    export default Tree;
 }
 declare module "etc/Boost" {
     import type Game from "core/Game";
@@ -532,7 +532,7 @@ declare module "etc/Boost" {
 declare module "etc/Conditions" {
     import type Game from "core/Game";
     import type Upgrade from "contents/Upgrade";
-    import type { DynamicParam } from "@util-types";
+    import type { DynamicParam } from "@typings/util";
     type CreateCondition<T> = DynamicParam<T[], Game> | undefined;
     interface ConditionsOptions {
         upgrade?: CreateCondition<string | Upgrade>;
@@ -544,3 +544,4 @@ declare module "etc/Conditions" {
         check(game: Game): void;
     }
 }
+//# sourceMappingURL=tree.d.ts.map

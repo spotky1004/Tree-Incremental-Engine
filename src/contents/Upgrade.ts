@@ -5,7 +5,7 @@ import errMsg from "../data/errMsg";
 import Decimal from "decimal.js";
 import type Game from "../core/Game";
 import type UpgradeList from "./UpgradeList";
-import type { NDecimal, NumberData, DynamicParam } from "@util-types";
+import type { NDecimal, NumberData, DynamicParam } from "@typings/util";
 
 export interface UpgradeSavedata extends ContentBaseSavedata {
   type: "Upgrade";

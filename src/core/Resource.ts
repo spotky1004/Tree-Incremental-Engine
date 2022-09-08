@@ -1,7 +1,7 @@
 import handleGameDP from "../util/handleGameDP";
 import Decimal from "decimal.js";
 import type Game from "./Game";
-import type { NDecimal, DynamicParam, NumberData } from "@util-types";
+import type { NDecimal, DynamicParam, NumberData } from "@typings/util";
 
 export interface ResourceSavedata {
   amount?: NumberData;
