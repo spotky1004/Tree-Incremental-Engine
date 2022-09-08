@@ -3,10 +3,10 @@ import Resource from "../core/Resource";
 import conetnet from "./conetnet";
 import num from "./num";
 
-const SIE = {
+const Tree = {
   Game,
   Resource,
   conetnet,
   num
 };
-export default SIE;
+export default Tree;

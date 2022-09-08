@@ -1,10 +1,10 @@
-import SIE from "./bundles/sie";
+import Tree from "./bundles/Tree";
 import Decimal from "decimal.js";
 
-const game = new SIE.Game({
+const game = new Tree.Game({
   localStorageKey: "SIE_test"
 });
-const coin = new SIE.Resource({
+const coin = new Tree.Resource({
   id: "coin",
   startAmount: 10,
   gainBase: (game) => game.getResource("pp").amount.sqrt().add(1),
@@ -13,7 +13,7 @@ const coin = new SIE.Resource({
     nameAbbr: "C"
   }
 });
-const pp = new SIE.Resource({
+const pp = new Tree.Resource({
   id: "pp",
   startAmount: 0,
   gainBase: 1,
@@ -26,7 +26,7 @@ const pp = new SIE.Resource({
 game.resources.add(coin);
 game.resources.add(pp);
 
-const cost1 = new SIE.num.Cost({
+const cost1 = new Tree.num.Cost({
   resource: coin,
   costValue: {
     type: "x",
@@ -43,7 +43,7 @@ const cost1 = new SIE.num.Cost({
     ]
   }
 });
-const sampleUpgrade = new SIE.conetnet.Upgrade({
+const sampleUpgrade = new Tree.conetnet.Upgrade({
   id: "sample_upgrade",
   name: "Sample Upgrade",
   cost: cost1,
@@ -52,7 +52,7 @@ const sampleUpgrade = new SIE.conetnet.Upgrade({
     console.log(game.getResource("coin"));
   }
 });
-const sampleUpgradeList = new SIE.conetnet.UpgradeList({
+const sampleUpgradeList = new Tree.conetnet.UpgradeList({
   id: "sample_upgrade_list",
   name: "Sample Upgrade List"
 })
@@ -65,4 +65,4 @@ game.savefile.load();
 
 console.log(game);
 
-export default SIE;
+export default Tree;
