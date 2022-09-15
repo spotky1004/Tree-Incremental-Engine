@@ -1,6 +1,6 @@
 import typeEqualize from "../util/typeEqualize";
 import type Game from "./Game";
-import type Savedata from "@typings/savedata";
+import type Savedata from "../typings/savedata";
 
 interface SavedataOptions {
   defaultData?: Savedata;
@@ -26,6 +26,7 @@ export default class Savefile {
   }
   
   load() {
+    if (typeof window === "undefined") return;
     const str = window.localStorage.getItem(this.localStorageKey);
     let savedata: Savedata = {};
     try {

@@ -1,5 +1,5 @@
-import { ResourceManagerSavedata } from "../core/ResourceManager";
-import { PlayerSavedata } from "../core/Player";
+import type { ResourceManagerSavedata } from "../core/ResourceManager";
+import type { PlayerSavedata } from "../core/Player";
 
 type ContentSavedatas = never;
 

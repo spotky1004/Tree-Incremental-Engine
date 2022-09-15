@@ -4,7 +4,7 @@ import Player from "./Player";
 import Savefile from "./Savefile";
 import errMsg from "../data/errMsg";
 import arrFindDuelicated from "../util/arrFindDuplicated";
-import type Savedata from "@typings/savedata";
+import type Savedata from "../typings/savedata";
 import type { AnyContentName } from "../bundles/conetnet";
 
 interface GameOptions {
